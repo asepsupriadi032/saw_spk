@@ -24,7 +24,7 @@ class Normalisasi extends Super
     $this->crud;
   }
 
-  function index($id_periode = null)
+  function index($id_periode = null, $key = null)
   {
     $data = [];
     /** Bagian GROCERY CRUD USER**/
@@ -45,12 +45,21 @@ class Normalisasi extends Super
     //     ->display_as('email','Email Setelah di Edit'); 
     $this->crud->display_as('id_karyawan', 'Karyawan');
     $this->crud->display_as('id_periode', 'Periode');
+    $this->crud->display_as('c1', 'Kinerja');
+    $this->crud->display_as('c2', 'Disiplin');
+    $this->crud->display_as('c3', 'Loyalitas');
+    $this->crud->display_as('c4', 'Masa Kerja');
+    $this->crud->display_as('c5', 'Tes Ujian');
 
     /** Akhir Bagian GROCERY CRUD Edit Oleh User**/
     if (!empty($id_periode)) {
       $this->crud->where('normalisasi.id_periode', $id_periode);
       $this->add            = false;
       $this->edit           = true;
+    }
+    if (!empty($key)) {
+
+      $this->edit           = false;
     }
     $this->crud->order_by('normalisasi.nilai_akhir', 'desc');
     $this->crud->where('status_karyawan', 'Kontrak');
@@ -84,8 +93,10 @@ class Normalisasi extends Super
     $getKaryawan = $this->db->get('normalisasi')->row();
     $id_karyawan = $getKaryawan->id_karyawan;
 
+    $now = date('Y-m-d H:i:s');
     $this->db->where('id', $id_karyawan);
     $this->db->set('status_karyawan', 'Tetap');
+    $this->db->set('tanggal_pengangkatan', $now);
     $this->db->update('karyawan');
     redirect('admin/Normalisasi/Index/' . $id_periode);
   }

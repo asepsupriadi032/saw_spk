@@ -31,6 +31,9 @@ class Perhitungan extends Super
     $data = [];
     if ($this->crud->getState() == "add")
       redirect(base_url('admin/Perhitungan/addKalkulasi'));
+
+    if ($this->crud->getState() == "read")
+      redirect(base_url('admin/Perhitungan/getNormalisasi/' . $this->uri->segment(5)));
     /** Bagian GROCERY CRUD USER**/
 
 
@@ -246,5 +249,10 @@ class Perhitungan extends Super
     }
 
     redirect('admin/Normalisasi/index/' . $periode);
+  }
+
+  public function getNormalisasi($id)
+  {
+    redirect('admin/Normalisasi/index/' . $id . '/cek');
   }
 }

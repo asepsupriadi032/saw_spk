@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2022 at 12:58 AM
+-- Generation Time: Sep 04, 2022 at 01:28 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -84,19 +84,20 @@ CREATE TABLE `karyawan` (
   `tanggal_lahir` date NOT NULL,
   `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
   `alamat` text NOT NULL,
-  `status_karyawan` enum('Tetap','Kontrak') NOT NULL
+  `status_karyawan` enum('Tetap','Kontrak') NOT NULL,
+  `tanggal_pengangkatan` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `karyawan`
 --
 
-INSERT INTO `karyawan` (`id`, `nip`, `nama`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `status_karyawan`) VALUES
-(1, 123, 'aaa', 'aaa', '2022-03-01', 'Laki-laki', '', 'Tetap'),
-(2, 1234, 'bb', 'bbb', '2022-03-02', 'Perempuan', '<p>\r\n	bbb</p>\r\n', 'Kontrak'),
-(3, 333333, 'cccc', 'ccc', '2022-06-01', 'Perempuan', '', 'Kontrak'),
-(4, 4444, 'ddd', 'ddd', '2022-06-01', 'Perempuan', '', 'Kontrak'),
-(5, 555, 'eee', 'eeee', '2022-06-01', 'Laki-laki', '', 'Tetap');
+INSERT INTO `karyawan` (`id`, `nip`, `nama`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `status_karyawan`, `tanggal_pengangkatan`) VALUES
+(1, 123, 'aaa', 'aaa', '2022-03-01', 'Laki-laki', '', 'Tetap', NULL),
+(2, 1234, 'bb', 'bbb', '2022-03-02', 'Perempuan', '<p>\r\n	bbb</p>\r\n', 'Kontrak', NULL),
+(3, 333333, 'cccc', 'ccc', '2022-06-01', 'Perempuan', '', 'Tetap', '2022-09-04'),
+(4, 4444, 'ddd', 'ddd', '2022-06-01', 'Perempuan', '', 'Kontrak', NULL),
+(5, 555, 'eee', 'eeee', '2022-06-01', 'Laki-laki', '', 'Tetap', NULL);
 
 -- --------------------------------------------------------
 
