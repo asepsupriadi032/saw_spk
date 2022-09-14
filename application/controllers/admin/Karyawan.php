@@ -16,9 +16,9 @@ class Karyawan extends Super
         $this->active_id_menu = "karyawan";
         $this->nama_view      = "Karyawan";
         $this->status         = true;
-        $this->field_tambah   = array();
-        $this->field_edit     = array();
-        $this->field_tampil   = array();
+        $this->field_tambah   = array('nip', 'nama', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'alamat');
+        $this->field_edit     = array('nip', 'nama', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'alamat', 'status_karyawan', 'tanggal_pengangkatan');
+        $this->field_tampil   = array('nip', 'nama', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'alamat', 'status_karyawan', 'tanggal_pengangkatan');
         $this->folder_upload  = 'assets/uploads/files';
         $this->add            = true;
         $this->edit           = true;

@@ -13,12 +13,12 @@ class Normalisasi extends Super
     $this->tema           = "flexigrid";
     /** datatables / flexigrid **/
     $this->tabel          = "normalisasi";
-    $this->active_id_menu = "normalisasi";
-    $this->nama_view      = "Nilai Karayawan";
+    $this->active_id_menu = "Normalisasi";
+    $this->nama_view      = "Nilai Karyawan";
     $this->status         = true;
     $this->field_tambah   = array();
     $this->field_edit     = array();
-    $this->field_tampil   = array('id_karyawan', 'id_periode', 'nilai_akhir');
+    $this->field_tampil   = array('rangking', 'id_karyawan', 'id_periode', 'nilai_akhir', 'status');
     $this->folder_upload  = 'assets/uploads/files';
     $this->delete         = false;
     $this->crud;
@@ -29,7 +29,7 @@ class Normalisasi extends Super
     $data = [];
     /** Bagian GROCERY CRUD USER**/
     if ($this->crud->getState() == "edit")
-      redirect(base_url('admin/Normalisasi/updateStatus/' . $this->uri->segment(4) . '/' . $this->uri->segment(6)));
+      redirect(base_url('admin/Hasil_normalisasi/updateStatus/' . $this->uri->segment(4) . '/' . $this->uri->segment(6)));
 
     /** Relasi Antar Tabel 
      * @parameter (nama_field_ditabel_ini, tabel_relasi, field_dari_tabel_relasinya)
@@ -54,15 +54,15 @@ class Normalisasi extends Super
     /** Akhir Bagian GROCERY CRUD Edit Oleh User**/
     if (!empty($id_periode)) {
       $this->crud->where('normalisasi.id_periode', $id_periode);
-      $this->add            = false;
-      $this->edit           = true;
+      // $this->add            = false;
+      // $this->edit           = true;
     }
-    if (!empty($key)) {
+    // if (!empty($key)) {
 
-      $this->edit           = false;
-    }
+    //   $this->edit           = false;
+    // }
     $this->crud->order_by('normalisasi.nilai_akhir', 'desc');
-    $this->crud->where('status_karyawan', 'Kontrak');
+    // $this->crud->where('status_karyawan', 'Kontrak');
     $data = array_merge($data, $this->generateBreadcumbs());
     $data = array_merge($data, $this->generateData());
     $this->generate();

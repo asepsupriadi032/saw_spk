@@ -27,6 +27,16 @@ class Dashboard extends CI_Controller
             ),
         );
 
+        //ambil semua data karyawan
+        $this->db->order_by('nama', 'asc');
+        $data['karyawan'] = $this->db->get('karyawan')->result();
+        //ambil data karyawan kontrak
+        $this->db->where('status_karyawan', 'Kontrak');
+        $data['kontrak'] = $this->db->get('karyawan')->num_rows();
+        //ambil data karyawan tetap
+        $this->db->where('status_karyawan', 'Tetap');
+        $data['tetap'] = $this->db->get('karyawan')->num_rows();
+
         $this->load->view('admin/' . $this->session->userdata('theme') . '/v_index', $data);
     }
 }

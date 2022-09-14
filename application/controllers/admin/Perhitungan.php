@@ -83,7 +83,7 @@ class Perhitungan extends Super
     $data = array_merge($data, $this->generateData());
     $this->generate();
 
-    $this->db->where('status', 1);
+    $this->db->where('status_periode', 1);
     $this->db->where('tanggal_kalkulasi', null);
     $data['periode'] = $this->db->get('periode')->result();
 
@@ -99,11 +99,6 @@ class Perhitungan extends Super
       $this->session->set_flashdata('pesan', 'Silahkan pilih periode.');
       redirect(base_url('admin/Perhitungan/addKalkulasi'));
     }
-    //ambil periode penilaian
-    $now = date('Y-m-d H:i:s');
-    $this->db->where('id', $periode);
-    $this->db->set('tanggal_kalkulasi', $now);
-    $this->db->update('periode');
 
     //ambil nilai max c1 / kinerja
     $this->db->select_max('kinerja');
@@ -236,10 +231,6 @@ class Perhitungan extends Super
         $this->db->set('nilai_akhir', $nilaiAkhir);
         $this->db->insert('normalisasi');
       }
-
-      var_dump('asd');
-
-
       /**normalisasi**/
 
       /**Hasil Normalisasi */
@@ -247,6 +238,64 @@ class Perhitungan extends Super
 
       // echo 'nama:' . $key->id_karyawan . " c1:" . $normalisasiC1 . " c2:" . $normalisasiC2 . " c3:" . $normalisasiC3 . " c4:" . $normalisasiC4 . " c5:" . $normalisasiC5 . "<br>";
     }
+
+    //ambil jumlah pengangkatan karyawan dari tabel periode
+    $getPeriode = $this->db->get_where('periode', array('id' => $periode))->row();
+    $jumlah_pengangkatan = $getPeriode->jumlah_pengangkatan;
+
+    // ambil kembali dari tabel normalisasi untuk perengkingan dan pengankatan karyawan
+    $this->db->order_by('normalisasi.nilai_akhir', 'DESC');
+    $this->db->join('periode', 'periode.id=normalisasi.id_periode');
+    $this->db->join('karyawan', 'karyawan.id=normalisasi.id_karyawan');
+    $getNilaiAkhir = $this->db->get_where('normalisasi', array('normalisasi.id_periode' => $periode))->result();
+    $no = 1;
+    $now = date('Y-m-d');
+    foreach ($getNilaiAkhir as $row) {
+      $status = "Kontrak";
+      if ($no <= $jumlah_pengangkatan) {
+        $status = "Tetap";
+        //update tabel karyawan
+        $this->db->where('id', $row->id_karyawan);
+        $this->db->set('status_karyawan', 'Tetap');
+        $this->db->set('tanggal_pengangkatan', $now);
+        $this->db->update('karyawan');
+
+        $this->db->where('id_normalisasi', $row->id_normalisasi);
+        $this->db->set('rangking', $no);
+        $this->db->set('status', 'Tetap');
+        $this->db->update('normalisasi');
+      } else {
+        $this->db->where('id_normalisasi', $row->id_normalisasi);
+        $this->db->set('rangking', $no);
+        $this->db->update('normalisasi');
+      }
+
+      //insert hasil perhitungan sebagai log\
+      $this->db->set([
+        "periode" => $row->periode,
+        "rangking" => $no,
+        "nip" => $row->nip,
+        "nama" => $row->nama,
+        "jenis_kelamin" => $row->jenis_kelamin,
+        "status" => $status,
+        "tanggal_kalkulasi" => date('Y-m-d H:i:s'),
+        "c1" => $row->c1,
+        "c2" => $row->c2,
+        "c3" => $row->c3,
+        "c4" => $row->c4,
+        "c5" => $row->c5,
+        "nilai_akhir" => $row->nilai_akhir,
+      ]);
+      $this->db->insert('hasil_perhitungan');
+      $no++;
+    }
+    //ambil periode penilaian
+
+    $now = date('Y-m-d H:i:s');
+    $this->db->where('id', $periode);
+    $this->db->set('tanggal_kalkulasi', $now);
+    $this->db->set('status_periode', '0');
+    $this->db->update('periode');
 
     redirect('admin/Normalisasi/index/' . $periode);
   }
