@@ -33,7 +33,7 @@ class Perhitungan extends Super
       redirect(base_url('admin/Perhitungan/addKalkulasi'));
 
     if ($this->crud->getState() == "read")
-      redirect(base_url('admin/Perhitungan/getNormalisasi/' . $this->uri->segment(5)));
+      redirect(base_url('admin/Perhitungan/hasil/' . $this->uri->segment(5)));
     /** Bagian GROCERY CRUD USER**/
 
 
@@ -51,6 +51,7 @@ class Perhitungan extends Super
     // $this->crud->display_as('id_karyawan', 'Pilih Karyawan');
 
     /** Akhir Bagian GROCERY CRUD Edit Oleh User**/
+    $this->crud->where('tanggal_kalkulasi is NOT NULL');
     $data = array_merge($data, $this->generateBreadcumbs());
     $data = array_merge($data, $this->generateData());
     $this->generate();
@@ -83,7 +84,7 @@ class Perhitungan extends Super
     $data = array_merge($data, $this->generateData());
     $this->generate();
 
-    $this->db->where('status_periode', 1);
+    $this->db->where('status_periode', 'Aktif');
     $this->db->where('tanggal_kalkulasi', null);
     $data['periode'] = $this->db->get('periode')->result();
 
@@ -210,6 +211,7 @@ class Perhitungan extends Super
 
       if (!empty($getNormalisai)) {
         //jika ada data, maka update
+        $this->db->set('id_nilai', $key->id);
         $this->db->where('id_karyawan', $key->id_karyawan);
         $this->db->where('id_periode', $key->id_periode);
         $this->db->set('c1', $nilaiC1);
@@ -221,6 +223,7 @@ class Perhitungan extends Super
         $this->db->update('normalisasi');
       } else {
         //jika tidak ada, maka insert
+        $this->db->set('id_nilai', $key->id);
         $this->db->set('id_karyawan', $key->id_karyawan);
         $this->db->set('id_periode', $key->id_periode);
         $this->db->set('c1', $nilaiC1);
@@ -231,6 +234,7 @@ class Perhitungan extends Super
         $this->db->set('nilai_akhir', $nilaiAkhir);
         $this->db->insert('normalisasi');
       }
+
       /**normalisasi**/
 
       /**Hasil Normalisasi */
@@ -272,9 +276,11 @@ class Perhitungan extends Super
 
       //insert hasil perhitungan sebagai log\
       $this->db->set([
+        "id_periode" => $row->id_periode,
         "periode" => $row->periode,
         "rangking" => $no,
         "nip" => $row->nip,
+        "id_karyawan" => $row->id_karyawan,
         "nama" => $row->nama,
         "jenis_kelamin" => $row->jenis_kelamin,
         "status" => $status,
@@ -294,10 +300,33 @@ class Perhitungan extends Super
     $now = date('Y-m-d H:i:s');
     $this->db->where('id', $periode);
     $this->db->set('tanggal_kalkulasi', $now);
-    $this->db->set('status_periode', '0');
+    $this->db->set('status_periode', 'Tidak Aktif');
     $this->db->update('periode');
 
-    redirect('admin/Normalisasi/index/' . $periode);
+    // redirect('admin/Normalisasi/index/' . $periode);
+    redirect('admin/Perhitungan/hasil/' . $periode);
+  }
+
+  public function hasil($id_periode)
+  {
+    $data = [];
+    $data = array_merge($data, $this->generateBreadcumbs());
+    $data = array_merge($data, $this->generateData());
+    $this->generate();
+
+    $this->db->where('normalisasi.id_periode', $id_periode);
+    $this->db->order_by('karyawan.nama', 'asc');
+    $this->db->join('karyawan', 'normalisasi.id_karyawan=karyawan.id');
+    $data['normalisasi'] = $this->db->get('normalisasi')->result();
+
+    $this->db->where('nilai_karyawan.id_periode', $id_periode);
+    $this->db->order_by('karyawan.nama', 'asc');
+    $this->db->join('karyawan', 'nilai_karyawan.id_karyawan=karyawan.id');
+    $data['karyawan'] = $this->db->get('nilai_karyawan')->result();
+
+    $data['page'] = "hasil-kalkulasi";
+    $data['output'] = $this->crud->render();
+    $this->load->view('admin/' . $this->session->userdata('theme') . '/v_index', $data);
   }
 
   public function getNormalisasi($id)

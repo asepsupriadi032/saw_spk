@@ -98,11 +98,65 @@
   </div>
   <div class="col-md-6">
     <div class="panel panel-default">
+      <div class="panel-heading">
+        <!--  -->
+        <h3>Histori</h3>
+        <!--  -->
+      </div>
       <div class="panel-body">
-        Basic panel example
+        <!-- tabel -->
+        <?php foreach ($periode as $key) { ?>
+          <table id="<?= $key->id ?>" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+              <tr>
+                <th colspan="6">
+                  <center>Periode: <?= $key->periode ?></center>
+                </th>
+              </tr>
+              <tr>
+                <th>Rangking</th>
+                <th>NIP</th>
+                <th>Nama</th>
+                <th>Jenis Kelamin</th>
+                <th>Nilai Akhir</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $no = 1;
+              $this->db->where('id_periode', $key->id);
+              $this->db->order_by('rangking', 'asc');
+              $this->db->join('karyawan', 'normalisasi.id_karyawan=karyawan.id');
+              $getKaryawan = $this->db->get('normalisasi')->result();
+              foreach ($getKaryawan as $key) { ?>
+                <tr>
+                  <td><?= $no ?></td>
+                  <td><?= $key->nip ?></td>
+                  <td><?= $key->nama ?></td>
+                  <td><?= $key->jenis_kelamin ?></td>
+                  <td><?= $key->nilai_akhir ?></td>
+                  <td><?= $key->status_karyawan ?></td>
+                </tr>
+              <?php $no++;
+              } ?>
+              <!-- <tfoot>
+            <tr>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Office</th>
+              <th>Age</th>
+              <th>Start date</th>
+              <th>Salary</th>
+            </tr>
+          </tfoot> -->
+          </table>
+          <hr>
+        <?php } ?>
+        <!-- tabel -->
       </div>
     </div>
   </div>
+
 </div>
 <!-- /.row -->
 
@@ -114,6 +168,11 @@
   $(document).ready(function() {
     $('#example').DataTable();
   });
+  <?php foreach ($periode as $key) { ?>
+    $(document).ready(function() {
+      $('<?= "#" . $key->id ?>').DataTable();
+    });
+  <?php } ?>
 </script>
 
 

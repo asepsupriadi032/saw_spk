@@ -33,7 +33,7 @@
     </div>
     <div class="row">
       <div class="col-md-12" style="text-align: right;">
-        <input type="submit" value="Simpan" class="btn btn-primary">
+        <input type="submit" value="Hitung" class="btn btn-primary">
       </div>
     </div>
   </div>

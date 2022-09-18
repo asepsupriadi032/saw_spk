@@ -37,6 +37,10 @@ class Dashboard extends CI_Controller
         $this->db->where('status_karyawan', 'Tetap');
         $data['tetap'] = $this->db->get('karyawan')->num_rows();
 
+        $this->db->where('tanggal_kalkulasi is NOT NULL');
+        $this->db->order_by('tanggal_kalkulasi', 'DESC');
+        $data['periode'] = $this->db->get('periode')->result();
+
         $this->load->view('admin/' . $this->session->userdata('theme') . '/v_index', $data);
     }
 }
