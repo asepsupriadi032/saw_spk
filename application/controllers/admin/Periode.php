@@ -16,8 +16,8 @@ class Periode extends Super
         $this->active_id_menu = "periode";
         $this->nama_view      = "Periode";
         $this->status         = true;
-        $this->field_tambah   = array();
-        $this->field_edit     = array();
+        $this->field_tambah   = array('judul', 'periode', 'jumlah_pengangkatan', 'status_periode', 'keterangan');
+        $this->field_edit     = array('judul', 'periode', 'jumlah_pengangkatan', 'status_periode', 'keterangan');
         $this->field_tampil   = array();
         $this->folder_upload  = 'assets/uploads/files';
         $this->add            = true;
