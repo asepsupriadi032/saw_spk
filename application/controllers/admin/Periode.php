@@ -61,7 +61,7 @@ class Periode extends Super
                 'url' => 'admin/dashboard'
             ),
             array(
-                'nama' => 'Admin',
+                'nama' => '', //buat tambah breadcrumb
                 'icon' => 'fa fa-users',
                 'url' => 'admin/useradmin'
             ),

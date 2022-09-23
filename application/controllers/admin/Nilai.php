@@ -14,7 +14,7 @@ class Nilai extends Super
         /** datatables / flexigrid **/
         $this->tabel          = "nilai_karyawan";
         $this->active_id_menu = "nilai_karyawan";
-        $this->nama_view      = "Nilai Karayawan";
+        $this->nama_view      = "Nilai Karyawan";
         $this->status         = true;
         $this->field_tambah   = array();
         $this->field_edit     = array();

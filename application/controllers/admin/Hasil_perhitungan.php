@@ -62,7 +62,7 @@ class Hasil_perhitungan extends Super
         'url' => 'admin/dashboard'
       ),
       array(
-        'nama' => 'Admin',
+        'nama' => '',
         'icon' => 'fa fa-users',
         'url' => 'admin/useradmin'
       ),

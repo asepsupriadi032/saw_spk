@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Super extends CI_Controller
 {
@@ -24,23 +24,25 @@ class Super extends CI_Controller
         parent::__construct();
         $this->load->library('grocery_CRUD');
         $this->crud = new grocery_CRUD();
-         if(!$this->session->userdata('login_admin')){
+        if (!$this->session->userdata('login_admin')) {
             redirect('admin/login');
         }
     }
-    protected function generateData(){
+    protected function generateData()
+    {
         // var_dump($this->active_id_menu); die();
-            $data['active']     = $this->active_id_menu;
-            $data['title']      = 'Admin - '.$this->nama_view;
-            $data['judul_1']    = 'Admin - '.$this->nama_view;
-            $data['judul_2']    = '';
-            $data['page']       = 'v_crud';
-            $data['menu'] = $this->Menus->generateMenu();
-            return $data;
+        $data['active']     = $this->active_id_menu;
+        $data['title']      = '' . $this->nama_view;
+        $data['judul_1']    = '' . $this->nama_view; //Admin - 
+        $data['judul_2']    = '';
+        $data['page']       = 'v_crud';
+        $data['menu'] = $this->Menus->generateMenu();
+        return $data;
     }
 
-    protected function generate(){
-        try{
+    protected function generate()
+    {
+        try {
             $this->crud->set_theme($this->tema);
             $this->crud->set_table($this->tabel);
             $this->crud->set_subject($this->nama_view);
@@ -49,21 +51,23 @@ class Super extends CI_Controller
             $this->crud->edit_fields($this->field_edit);
             $this->crud->columns($this->field_tampil);
             //bagian status
-            if($this->status){
-                $this->crud->field_type('status','dropdown',
-                array('1' => 'Aktif', '0' => 'Tidak Aktif'));    
+            if ($this->status) {
+                $this->crud->field_type(
+                    'status',
+                    'dropdown',
+                    array('1' => 'Aktif', '0' => 'Tidak Aktif')
+                );
             }
 
-            if(!$this->add)
+            if (!$this->add)
                 $this->crud->unset_add();
-            if(!$this->edit)
+            if (!$this->edit)
                 $this->crud->unset_edit();
 
-            if(!$this->delete)
+            if (!$this->delete)
                 $this->crud->unset_delete();
-
-        }catch(Exception $e){
-            show_error($e->getMessage().' --- '.$e->getTraceAsString());
+        } catch (Exception $e) {
+            show_error($e->getMessage() . ' --- ' . $e->getTraceAsString());
         }
     }
 }

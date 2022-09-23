@@ -15,7 +15,7 @@ class Dashboard extends CI_Controller
     function index()
     {
         $data['active']     = 'dash';
-        $data['judul_1']    = 'Admin - ' . $this->session->userdata('nama');
+        $data['judul_1']    = $this->session->userdata('nama');
         $data['judul_2']    = 'Selamat Datang';
         $data['page']       = 'v_dashboard';
         $data['menu']       = $this->Menus->generateMenu();
