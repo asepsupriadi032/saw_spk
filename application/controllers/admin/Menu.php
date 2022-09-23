@@ -16,9 +16,9 @@ class Menu extends Super
         $this->active_id_menu = "menu";
         $this->nama_view      = "Menu";
         $this->status         = true;
-        $this->field_tambah   = array();
-        $this->field_edit     = array();
-        $this->field_tampil   = array();
+        $this->field_tambah   = array('parent_menu', 'nama_menu', 'url_menu', 'icon', 'urutan', 'status');
+        $this->field_edit     = array('parent_menu', 'nama_menu', 'url_menu', 'icon', 'urutan', 'status');
+        $this->field_tampil   = array('parent_menu', 'nama_menu', 'url_menu', 'icon', 'urutan', 'status');
         $this->folder_upload  = 'assets/uploads/files';
         $this->add            = true;
         $this->edit           = true;
