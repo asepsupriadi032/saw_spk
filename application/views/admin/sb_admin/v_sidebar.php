@@ -25,7 +25,6 @@
 					<?php echo ucfirst(str_replace('_', ' ', $value['nama'])); ?>
 				</a>
 			<?php } ?>
-
 		</li>
 	<?php } ?>
 </ul>
