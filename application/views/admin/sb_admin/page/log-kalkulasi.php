@@ -99,11 +99,11 @@
             <th>Rangking</th>
           </tr>
           <tr>
-            <td><?= $normalisasi->kinerja; ?></td>
-            <td><?= $normalisasi->disiplin; ?></td>
-            <td><?= $normalisasi->loyalitas; ?></td>
-            <td><?= $normalisasi->masa_kerja; ?></td>
-            <td><?= $normalisasi->ujian_tes; ?></td>
+            <td><?= $nilai_karyawan->kinerja; ?></td>
+            <td><?= $nilai_karyawan->disiplin; ?></td>
+            <td><?= $nilai_karyawan->loyalitas; ?></td>
+            <td><?= $nilai_karyawan->masa_kerja; ?></td>
+            <td><?= $nilai_karyawan->ujian_tes; ?></td>
             <td><?= $normalisasi->c1; ?></td>
             <td><?= $normalisasi->c2; ?></td>
             <td><?= $normalisasi->c3; ?></td>

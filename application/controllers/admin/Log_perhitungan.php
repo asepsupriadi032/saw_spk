@@ -89,10 +89,20 @@ class Log_perhitungan extends Super
     $data = array_merge($data, $this->generateData());
     $this->generate();
 
-    $this->db->where('normalisasi.id_periode', $id_periode);
-    $this->db->where('normalisasi.id_karyawan', $id_karyawan);
-    $this->db->join('nilai_karyawan', 'nilai_karyawan.id=normalisasi.id_karyawan');
-    $data['normalisasi'] = $this->db->get('normalisasi')->row();
+    // $this->db->limit(1);
+    // $this->db->where('normalisasi.id_periode', $id_periode);
+    // $this->db->where('normalisasi.id_karyawan', $id_karyawan);
+    // $this->db->join('nilai_karyawan', 'nilai_karyawan.id=normalisasi.id_nilai', 'left');
+    // $data['normalisasi'] = $this->db->get('normalisasi')->row();
+    $data['normalisasi'] = $getKaryawan;
+
+    $this->db->limit(1);
+    $this->db->where('nilai_karyawan.id_periode', $id_periode);
+    $this->db->where('nilai_karyawan.id_karyawan', $id_karyawan);
+    $data['nilai_karyawan'] = $this->db->get('nilai_karyawan')->row();
+    // var_dump($data['nilai_karyawan']);
+    // die;
+
 
     $this->db->where('normalisasi.id_periode', $id_periode);
     $this->db->where('normalisasi.id_karyawan', $id_karyawan);
