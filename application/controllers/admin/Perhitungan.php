@@ -22,7 +22,7 @@ class Perhitungan extends Super
     $this->folder_upload  = 'assets/uploads/files';
     $this->add            = true;
     $this->edit           = false;
-    $this->delete         = false;
+    $this->delete         = true;
     $this->crud;
   }
 
@@ -34,6 +34,9 @@ class Perhitungan extends Super
 
     if ($this->crud->getState() == "read")
       redirect(base_url('admin/Perhitungan/hasil/' . $this->uri->segment(5)));
+
+    if ($this->crud->getState() == "delete")
+      redirect(base_url('admin/Perhitungan/delete/' . $this->uri->segment(5)));
     /** Bagian GROCERY CRUD USER**/
 
 
@@ -332,5 +335,17 @@ class Perhitungan extends Super
   public function getNormalisasi($id)
   {
     redirect('admin/Normalisasi/index/' . $id . '/cek');
+  }
+
+  public function delete($id_periode)
+  {
+    $this->db->where('id_periode', $id_periode);
+    $this->db->delete('hasil_perhitungan');
+
+    $this->db->where('id', $id_periode);
+    $this->db->set('tanggal_kalkulasi', null);
+    $this->db->update('periode');
+    header("Refresh:0");
+    // redirect(base_url('admin/dasboard'));
   }
 }

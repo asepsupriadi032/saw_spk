@@ -43,4 +43,14 @@ class Dashboard extends CI_Controller
 
         $this->load->view('admin/' . $this->session->userdata('theme') . '/v_index', $data);
     }
+
+    public function kontrak()
+    {
+        redirect(base_url('admin/karyawan?type=Kontrak'));
+    }
+
+    public function tetap()
+    {
+        redirect(base_url('admin/karyawan?type=Tetap'));
+    }
 }

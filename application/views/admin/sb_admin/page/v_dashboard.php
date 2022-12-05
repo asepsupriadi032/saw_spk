@@ -21,13 +21,13 @@
                   </div>
                 </div>
               </div>
-              <!-- <a href="#">
-        <div class="panel-footer">
-          <span class="pull-left">View Details</span>
-          <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-          <div class="clearfix"></div>
-        </div>
-      </a> -->
+              <a href="<?= base_url('admin/dashboard/kontrak') ?>">
+                <div class="panel-footer">
+                  <span class="pull-left">View Details</span>
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+                </div>
+              </a>
             </div>
           </div>
           <div class="col-lg-6 col-md-6">
@@ -43,13 +43,13 @@
                   </div>
                 </div>
               </div>
-              <!-- <a href="#">
-        <div class="panel-footer">
-          <span class="pull-left">View Details</span>
-          <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-          <div class="clearfix"></div>
-        </div>
-      </a> -->
+              <a href="<?= base_url('admin/dashboard/tetap') ?>">
+                <div class="panel-footer">
+                  <span class="pull-left">View Details</span>
+                  <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                  <div class="clearfix"></div>
+                </div>
+              </a>
             </div>
           </div>
         </div>

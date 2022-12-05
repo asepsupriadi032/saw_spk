@@ -30,7 +30,7 @@ class Karyawan extends Super
     {
         $data = [];
         /** Bagian GROCERY CRUD USER**/
-
+        $type = $this->input->get('type') ?? null;
 
         /** Relasi Antar Tabel yg ada
          * @parameter (nama_field_ditabel_ini, tabel_relasi, field_dari_tabel_relasinya)
@@ -43,7 +43,8 @@ class Karyawan extends Super
         /** Ubah Nama yang akan ditampilkan**/
         // $this->crud->display_as('nama','Nama Setelah di Edit')
         //     ->display_as('email','Email Setelah di Edit'); 
-
+        if ($type)
+            $this->crud->where('status_karyawan', ucwords($type));
         /** Akhir Bagian GROCERY CRUD Edit Oleh User**/
         $data = array_merge($data, $this->generateBreadcumbs());
         $data = array_merge($data, $this->generateData());

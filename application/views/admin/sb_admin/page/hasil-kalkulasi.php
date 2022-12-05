@@ -7,7 +7,7 @@
     <div class="panel panel-info">
       <div class="panel-heading">
         <!--  -->
-        <h4>Nilai Karyawan</h4>
+        <h4>Nilai Awal Karyawan</h4>
         <!--  -->
       </div>
       <div class="panel-body">
@@ -56,15 +56,15 @@
         <!-- tabel -->
       </div>
     </div>
-    <div class="panel panel-danger">
+    <div class="panel panel-warning">
       <div class="panel-heading">
         <!--  -->
-        <h4>Nilai Akhir</h4>
+        <h4>Nilai Normalisasi</h4>
         <!--  -->
       </div>
       <div class="panel-body">
         <!-- tabel -->
-        <table id="hasil" class="table table-striped table-bordered" style="width:100%">
+        <table id="normalisasi" class="table table-striped table-bordered" style="width:100%">
           <thead>
             <tr>
               <th>No</th>
@@ -76,9 +76,6 @@
               <th>(C3) Loyalitas </th>
               <th>(C4) Masa Kerja </th>
               <th>(C5) Ujian Tes </th>
-              <th>Nilai Akhir</th>
-              <th>Rangking</th>
-              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -94,6 +91,51 @@
                 <td><?= $key->c3 ?></td>
                 <td><?= $key->c4 ?></td>
                 <td><?= $key->c5 ?></td>
+              </tr>
+            <?php $no++;
+            } ?>
+            <!-- <tfoot>
+            <tr>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Office</th>
+              <th>Age</th>
+              <th>Start date</th>
+              <th>Salary</th>
+            </tr>
+          </tfoot> -->
+        </table>
+        <!-- tabel -->
+      </div>
+    </div>
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <!--  -->
+        <h4>Nilai Akhir</h4>
+        <!--  -->
+      </div>
+      <div class="panel-body">
+        <!-- tabel -->
+        <table id="hasil" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>NIP</th>
+              <th>Nama</th>
+              <th>Jenis Kelamin</th>
+              <th>Nilai Akhir</th>
+              <th>Rangking</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php $no = 1;
+            foreach ($normalisasi as $key) { ?>
+              <tr>
+                <td><?= $no ?></td>
+                <td><?= $key->nip ?></td>
+                <td><?= $key->nama ?></td>
+                <td><?= $key->jenis_kelamin ?></td>
                 <td><?= $key->nilai_akhir ?></td>
                 <td><?= $key->rangking ?></td>
                 <td><?= $key->status ?></td>
@@ -129,6 +171,9 @@
   });
   $(document).ready(function() {
     $('#hasil').DataTable();
+  });
+  $(document).ready(function() {
+    $('#normalisasi').DataTable();
   });
 </script>
 

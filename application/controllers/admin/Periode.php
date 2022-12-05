@@ -16,8 +16,8 @@ class Periode extends Super
         $this->active_id_menu = "periode";
         $this->nama_view      = "Periode";
         $this->status         = true;
-        $this->field_tambah   = array('judul', 'periode', 'jumlah_pengangkatan', 'status_periode', 'keterangan');
-        $this->field_edit     = array('judul', 'periode', 'jumlah_pengangkatan', 'status_periode', 'keterangan');
+        $this->field_tambah   = array('judul', 'periode', 'jumlah_pengangkatan', 'status_periode', 'tanggal_kalkulasi', 'keterangan');
+        $this->field_edit     = array('judul', 'periode', 'jumlah_pengangkatan', 'status_periode', 'tanggal_kalkulasi', 'keterangan');
         $this->field_tampil   = array();
         $this->folder_upload  = 'assets/uploads/files';
         $this->add            = true;
@@ -29,6 +29,7 @@ class Periode extends Super
     function index()
     {
         $data = [];
+        // redirect(base_url('admin/Perhitungan/delete/' . $this->uri->segment(5)));
         /** Bagian GROCERY CRUD USER**/
 
 
@@ -67,5 +68,27 @@ class Periode extends Super
             ),
         );
         return $data;
+    }
+
+    public function updateStatus($id_periode)
+    {
+        try {
+            //code...
+            var_dump($id_periode);
+
+            redirect(base_url('admin/dashboard'));
+        } catch (Exception $e) {
+            show_error($e->getMessage());
+        }
+        if ($id_periode) {
+        } else {
+        }
+        die;
+        $this->db->where('id_periode', $id_periode);
+        $this->db->delete('hasil_perhitungan');
+
+        $this->db->where('id', $id_periode);
+        $this->db->set('tanggal_kalkulasi', null);
+        $this->db->update('periode');
     }
 }

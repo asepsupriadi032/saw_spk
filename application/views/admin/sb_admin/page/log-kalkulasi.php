@@ -4,7 +4,7 @@
 <link href="css/plugins/morris.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-6">
-    <div class="panel panel-info">
+    <div class="panel panel-default">
       <div class="panel-heading">
         <!--  -->
         <h4>Data Karyawan</h4>
@@ -45,7 +45,7 @@
     </div>
   </div>
   <div class="col-md-6">
-    <div class="panel panel-success">
+    <div class="panel panel-default">
       <div class="panel-heading">
         <!--  -->
         <h4>Periode</h4>
@@ -75,10 +75,10 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="panel panel-danger">
+    <div class="panel panel-info">
       <div class="panel-heading">
         <!--  -->
-        <h4>Nilai Karyawan</h4>
+        <h4>Nilai Awal Karyawan</h4>
         <!--  -->
       </div>
       <div class="panel-body">
@@ -90,13 +90,6 @@
             <th>Loyalitas</th>
             <th>Masa Kerja</th>
             <th>Ujian Tes</th>
-            <th>C1</th>
-            <th>C2</th>
-            <th>C3</th>
-            <th>C4</th>
-            <th>C5</th>
-            <th>Hasil</th>
-            <th>Rangking</th>
           </tr>
           <tr>
             <td><?= $nilai_karyawan->kinerja; ?></td>
@@ -104,11 +97,61 @@
             <td><?= $nilai_karyawan->loyalitas; ?></td>
             <td><?= $nilai_karyawan->masa_kerja; ?></td>
             <td><?= $nilai_karyawan->ujian_tes; ?></td>
+          </tr>
+        </table>
+        <!-- tabel -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <!--  -->
+        <h4>Nilai Normalisasi</h4>
+        <!--  -->
+      </div>
+      <div class="panel-body">
+        <!-- tabel -->
+        <table class="table table-striped">
+          <tr>
+            <th>C1</th>
+            <th>C2</th>
+            <th>C3</th>
+            <th>C4</th>
+            <th>C5</th>
+          </tr>
+          <tr>
             <td><?= $normalisasi->c1; ?></td>
             <td><?= $normalisasi->c2; ?></td>
             <td><?= $normalisasi->c3; ?></td>
             <td><?= $normalisasi->c4; ?></td>
             <td><?= $normalisasi->c5; ?></td>
+          </tr>
+        </table>
+        <!-- tabel -->
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <!--  -->
+        <h4>Nilai Akhir</h4>
+        <!--  -->
+      </div>
+      <div class="panel-body">
+        <!-- tabel -->
+        <table class="table table-striped">
+          <tr>
+            <th>Hasil</th>
+            <th>Rangking</th>
+          </tr>
+          <tr>
             <td><?= $normalisasi->nilai_akhir; ?></td>
             <td><?= $normalisasi->rangking; ?></td>
           </tr>
