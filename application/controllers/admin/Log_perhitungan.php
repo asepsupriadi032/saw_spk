@@ -38,7 +38,7 @@ class Log_perhitungan extends Super
      * @parameter (nama_field_ditabel_ini, tabel_relasi, field_dari_tabel_relasinya)
      **/
     // $this->crud->set_relation('parent_menu','tjm_menu','nama_menu');
-    // $this->crud->set_relation('id_periode', 'periode', 'periode');
+    $this->crud->set_relation('id_periode', 'periode', 'periode');
     // $this->crud->set_relation('id_peri', 'periode', 'periode');
 
     /** Upload **/
@@ -54,6 +54,7 @@ class Log_perhitungan extends Super
     $this->crud->display_as('c4', 'Masa Kerja');
     $this->crud->display_as('c5', 'Tes Ujian');
 
+    // $this->crud->set_relation('periode', 'periode.id=hasil_perhitungan.id_periode');
     /** Akhir Bagian GROCERY CRUD Edit Oleh User**/
     $data = array_merge($data, $this->generateBreadcumbs());
     $data = array_merge($data, $this->generateData());
@@ -104,10 +105,13 @@ class Log_perhitungan extends Super
     // die;
 
 
-    $this->db->where('normalisasi.id_periode', $id_periode);
-    $this->db->where('normalisasi.id_karyawan', $id_karyawan);
-    $this->db->join('karyawan', 'normalisasi.id_karyawan=karyawan.id');
-    $data['karyawan'] = $this->db->get('normalisasi')->row();
+    // $this->db->where('normalisasi.id_periode', $id_periode);
+    // $this->db->where('normalisasi.id_karyawan', $id_karyawan);
+    // $this->db->join('karyawan', 'normalisasi.id_karyawan=karyawan.id');
+    // $data['karyawan'] = $this->db->get('normalisasi')->row();
+
+    $this->db->where('id', $id_karyawan);
+    $data['karyawan'] = $this->db->get('karyawan')->row();
 
     $data['periode'] = $this->db->get_where('periode', array('id' => $id_periode))->row();
 

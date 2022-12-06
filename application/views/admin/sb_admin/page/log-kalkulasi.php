@@ -15,25 +15,26 @@
         <table class="table table-striped">
           <tr>
             <th>NIP</th>
-            <td><?= $karyawan->nip ?></td>
+            <td><?= $karyawan->nip ?? '' ?></td>
           </tr>
           <tr>
             <th>Nama</th>
-            <td><?= $karyawan->nama ?></td>
+            <td><?= $karyawan->nama ?? '' ?></td>
           </tr>
           <tr>
             <th>Jenis Kelamin</th>
-            <td><?= $karyawan->jenis_kelamin ?></td>
+            <td><?= $karyawan->jenis_kelamin ?? '' ?></td>
           </tr>
           <tr>
             <th>Alamat</th>
-            <td><?= $karyawan->alamat ?></td>
+            <td><?= $karyawan->alamat ?? '' ?></td>
           </tr>
           <tr>
             <th>Status Karyawan</th>
-            <td><?= $karyawan->status ?></td>
+            <?php $karyawan_status = $karyawan ?? ''; ?>
+            <td><?= $karyawan_status ?? '' ?></td>
           </tr>
-          <?php if ($karyawan->status == "Tetap") { ?>
+          <?php if ($karyawan_status == "Tetap") { ?>
             <tr>
               <th>Tanggal Pengangkatan</th>
               <td><?= $karyawan->tanggal_pengangkatan ?></td>
@@ -56,15 +57,15 @@
         <table class="table table-striped">
           <tr>
             <th>Periode</th>
-            <td><?= $periode->periode ?></td>
+            <td><?= $periode->periode ?? '' ?></td>
           </tr>
           <tr>
             <th>Judul</th>
-            <td><?= $periode->judul ?></td>
+            <td><?= $periode->judul ?? '' ?></td>
           </tr>
           <tr>
             <th>Tanggal Kalkulasi</th>
-            <td><?= $periode->tanggal_kalkulasi ?></td>
+            <td><?= $periode->tanggal_kalkulasi ?? '' ?></td>
           </tr>
         </table>
         <!-- tabel -->
@@ -92,11 +93,11 @@
             <th>Ujian Tes</th>
           </tr>
           <tr>
-            <td><?= $nilai_karyawan->kinerja; ?></td>
-            <td><?= $nilai_karyawan->disiplin; ?></td>
-            <td><?= $nilai_karyawan->loyalitas; ?></td>
-            <td><?= $nilai_karyawan->masa_kerja; ?></td>
-            <td><?= $nilai_karyawan->ujian_tes; ?></td>
+            <td><?= $nilai_karyawan->kinerja ?? '';  ?></td>
+            <td><?= $nilai_karyawan->disiplin ?? ''; ?></td>
+            <td><?= $nilai_karyawan->loyalitas ?? ''; ?></td>
+            <td><?= $nilai_karyawan->masa_kerja ?? ''; ?></td>
+            <td><?= $nilai_karyawan->ujian_tes ?? ''; ?></td>
           </tr>
         </table>
         <!-- tabel -->
