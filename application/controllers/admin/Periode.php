@@ -30,8 +30,12 @@ class Periode extends Super
     {
         $data = [];
         // redirect(base_url('admin/Perhitungan/delete/' . $this->uri->segment(5)));
+        if ($this->crud->getState() == "add")
+            redirect(base_url('admin/Periode/addPeriode'));
+        if ($this->crud->getState() == "edit")
+            redirect(base_url('admin/Periode/editPeriode/' . $this->uri->segment(5)));
         /** Bagian GROCERY CRUD USER**/
-
+        $this->crud->callback_before_update(19, 'update_data');
 
         /** Relasi Antar Tabel 
          * @parameter (nama_field_ditabel_ini, tabel_relasi, field_dari_tabel_relasinya)
@@ -70,6 +74,32 @@ class Periode extends Super
         return $data;
     }
 
+    public function addPeriode()
+    {
+        $data = [];
+        $data = array_merge($data, $this->generateBreadcumbs());
+        $data = array_merge($data, $this->generateData());
+        $this->generate();
+
+
+        $data['page'] = "add-periode";
+        $data['output'] = $this->crud->render();
+        $this->load->view('admin/' . $this->session->userdata('theme') . '/v_index', $data);
+    }
+    public function editPeriode($id_periode)
+    {
+        $data = [];
+        $data = array_merge($data, $this->generateBreadcumbs());
+        $data = array_merge($data, $this->generateData());
+        $this->generate();
+
+        $data['periode'] = $this->db->get_where('periode', array('id' => $id_periode))->row();
+
+        $data['page'] = "edit-periode";
+        $data['output'] = $this->crud->render();
+        $this->load->view('admin/' . $this->session->userdata('theme') . '/v_index', $data);
+    }
+
     public function updateStatus($id_periode)
     {
         try {
@@ -90,5 +120,39 @@ class Periode extends Super
         $this->db->where('id', $id_periode);
         $this->db->set('tanggal_kalkulasi', null);
         $this->db->update('periode');
+    }
+
+    public function insertPeriode()
+    {
+        $this->db->set('judul', $this->input->post('judul'));
+        $this->db->set('jumlah_pengangkatan', $this->input->post('jumlah_pengangkatan'));
+        $this->db->set('status_periode', $this->input->post('status_periode'));
+        $this->db->set('periode', $this->input->post('periode'));
+        $this->db->set('keterangan', $this->input->post('keterangan'));
+        $this->db->insert('periode');
+
+        redirect(base_url('admin/Periode'));
+    }
+    public function updatePeriode($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->set('judul', $this->input->post('judul'));
+        $this->db->set('jumlah_pengangkatan', $this->input->post('jumlah_pengangkatan'));
+        $this->db->set('status_periode', $this->input->post('status_periode'));
+        $this->db->set('periode', $this->input->post('periode'));
+        $this->db->set('tanggal_kalkulasi', $this->input->post('tanggal_kalkulasi'));
+        if ($this->input->post('tanggal_kalkulasi') == '') {
+            $this->db->set('tanggal_kalkulasi', null);
+        }
+        $this->db->set('keterangan', $this->input->post('keterangan'));
+        $this->db->update('periode');
+
+        $this->db->where('id_periode', $id);
+        $this->db->delete('normalisasi');
+
+        $this->db->where('id_periode', $id);
+        $this->db->delete('hasil_perhitungan');
+
+        redirect(base_url('admin/Periode'));
     }
 }

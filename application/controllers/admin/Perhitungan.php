@@ -103,7 +103,6 @@ class Perhitungan extends Super
       $this->session->set_flashdata('pesan', 'Silahkan pilih periode.');
       redirect(base_url('admin/Perhitungan/addKalkulasi'));
     }
-
     //ambil nilai max c1 / kinerja
     $this->db->select_max('kinerja');
     $getC1Max = $this->db->get_where('nilai_karyawan', array('id_periode' => $periode))->row();
@@ -211,7 +210,6 @@ class Perhitungan extends Super
       $this->db->where('id_karyawan', $key->id_karyawan);
       $this->db->where('id_periode', $key->id_periode);
       $getNormalisai = $this->db->get('normalisasi')->row();
-
       if (!empty($getNormalisai)) {
         //jika ada data, maka update
         $this->db->set('id_nilai', $key->id);
@@ -249,7 +247,6 @@ class Perhitungan extends Super
     //ambil jumlah pengangkatan karyawan dari tabel periode
     $getPeriode = $this->db->get_where('periode', array('id' => $periode))->row();
     $jumlah_pengangkatan = $getPeriode->jumlah_pengangkatan;
-
     // ambil kembali dari tabel normalisasi untuk perengkingan dan pengankatan karyawan
     $this->db->order_by('normalisasi.nilai_akhir', 'DESC');
     $this->db->join('periode', 'periode.id=normalisasi.id_periode');
